@@ -88,3 +88,15 @@ resource "aws_route_table_association" "app" {
   subnet_id      = aws_subnet.app.*.id[count.index]
   route_table_id = aws_route_table.app.id
 }
+
+## IGW internet gate way creation
+
+resource "aws_internet_gateway" "public" {
+  vpc_id = aws_vpc.main.id
+  tags = merge(var.tags, {Name = "public"})
+}
+
+resource "aws_internet_gateway_attachment" "public" {
+  internet_gateway_id = aws_internet_gateway.public.*.id[count.index]
+  vpc_id              = aws_vpc.main.id
+}
