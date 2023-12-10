@@ -14,3 +14,9 @@ app_subnet = ["10.0.5.0/24" , "10.0.6.0/24"]
 db_subnet = ["10.0.7.0/24" , "10.0.8.0/24"]
 
 availability_zone = ["us-east-1a","us-east-1b"]
+
+account_id = "513840145359"
+default_vpc_id = "vpc-02f26d6a8715fbc70"
+default_route_table_id = "rtb-01066c9b87d4f7f51"
+
+default_vpc_cidr = "172.31.0.0/16"

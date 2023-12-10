@@ -49,6 +49,11 @@ resource "aws_route_table" "public" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
+
+  route {
+    cidr_block = var.default_vpc_cidr
+    aws_vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  }
 }
 
 resource "aws_route_table" "web" {
@@ -58,6 +63,11 @@ resource "aws_route_table" "web" {
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.ngw.id
+  }
+
+  route {
+    cidr_block = var.default_vpc_cidr
+    aws_vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
   }
 }
 
@@ -69,6 +79,11 @@ resource "aws_route_table" "app" {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.ngw.id
   }
+
+  route {
+    cidr_block = var.default_vpc_cidr
+    aws_vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  }
 }
 
 resource "aws_route_table" "db" {
@@ -78,6 +93,11 @@ resource "aws_route_table" "db" {
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.ngw.id
+  }
+
+  route {
+    cidr_block = var.default_vpc_cidr
+    aws_vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
   }
 }
 
@@ -128,4 +148,18 @@ resource "aws_nat_gateway" "ngw" {
 
 resource "aws_eip" "ngw" {
   domain   = "vpc"
+}
+
+resource "aws_vpc_peering_connection" "peer" {
+  peer_owner_id = var.account_id
+  peer_vpc_id   = var.default_vpc_id
+  vpc_id        = aws_vpc.main.id
+  auto_accept   = true
+  tags = merge(var.tags, {Name = "perr-for${var.env}-vpc-to-default-vpc"})
+}
+
+resource "aws_route" "default-route-table" {
+  route_table_id            = var.default_vpc_cidr
+  destination_cidr_block    = var.vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
 }

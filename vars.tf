@@ -6,3 +6,6 @@ variable "web_subnet" {}
 variable "app_subnet" {}
 variable "db_subnet" {}
 variable "availability_zone" {}
+variable "account_id" {}
+variable "default_vpc_id" {}
+variable "default_vpc_cidr" {}
