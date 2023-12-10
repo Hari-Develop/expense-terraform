@@ -102,3 +102,16 @@ resource "aws_internet_gateway" "igw" {
   tags = merge(var.tags, {Name = "igw"})
 }
 
+## nat gate way
+
+resource "aws_nat_gateway" "ngw" {
+  count         = length(aws_subnet.public)
+  allocation_id = aws_eip.ngw.id
+  subnet_id     = aws_subnet.public.*.id[count.index]
+}
+
+# elastic ip address
+
+resource "aws_eip" "ngw" {
+  domain   = "vpc"
+}
