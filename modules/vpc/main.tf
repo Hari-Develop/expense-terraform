@@ -97,6 +97,7 @@ resource "aws_internet_gateway" "public" {
 }
 
 resource "aws_internet_gateway_attachment" "public" {
+  count               = length(aws_subnet.public)
   internet_gateway_id = aws_internet_gateway.public.*.id[count.index]
   vpc_id              = aws_vpc.main.id
 }
