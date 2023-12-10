@@ -61,6 +61,8 @@ resource "aws_route_table" "db" {
   tags = merge(var.tags, {Name = "db"})
 }
 
+
+
 ## route table assocation
 
 resource "aws_route_table_association" "public" {
