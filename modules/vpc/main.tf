@@ -120,9 +120,8 @@ resource "aws_internet_gateway" "igw" {
 ## nat gate way
 
 resource "aws_nat_gateway" "ngw" {
-  count         = length(aws_subnet.public)
   allocation_id = aws_eip.ngw.id
-  subnet_id     = aws_subnet.public.*.id[count.index]
+  subnet_id     = aws_subnet.public.*.id[0]
 }
 
 # elastic ip address
