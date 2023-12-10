@@ -69,6 +69,11 @@ resource "aws_route_table_association" "public" {
   count          = length(aws_subnet.public)
   subnet_id      = aws_subnet.public.*.id[count.index]
   route_table_id = aws_route_table.public.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
 }
 
 resource "aws_route_table_association" "web" {
@@ -91,13 +96,8 @@ resource "aws_route_table_association" "app" {
 
 ## IGW internet gate way creation
 
-resource "aws_internet_gateway" "public" {
+resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-  tags = merge(var.tags, {Name = "public"})
+  tags = merge(var.tags, {Name = "igw"})
 }
 
-resource "aws_internet_gateway_attachment" "public" {
-  count               = length(aws_subnet.public)
-  internet_gateway_id = aws_internet_gateway.public.*.id[count.index]
-  vpc_id              = aws_vpc.main.id
-}
