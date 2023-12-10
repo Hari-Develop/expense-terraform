@@ -13,4 +13,4 @@ web_subnet = ["10.0.3.0/24" , "10.0.4.0/24"]
 app_subnet = ["10.0.5.0/24" , "10.0.6.0/24"]
 db_subnet = ["10.0.7.0/24" , "10.0.8.0/24"]
 
-availability_zone = ["us-ease-1a","us-east-1b"]
+availability_zone = ["us-east-1a","us-east-1b"]
