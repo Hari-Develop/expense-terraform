@@ -103,7 +103,7 @@ resource "aws_route_table" "db" {
 
 
 
-## route table assocation
+## route table association
 
 resource "aws_route_table_association" "public" {
   count          = length(aws_subnet.public)

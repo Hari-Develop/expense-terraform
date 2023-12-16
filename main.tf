@@ -13,3 +13,17 @@ module "vpc" {
   default_vpc_cidr = var.default_vpc_cidr
   default_route_table_id = var.default_route_table_id
 }
+
+module "backend" {
+  source = "./modules/app"
+  app_port            = var.backend["app_port"]
+  component           = "Backend"
+  env                 = var.env
+  instance_capacity   = var.backend["instance_capacity"]
+  instance_type       = var.backend["instance_type"]
+  security_group_cidr = var.web_subnet
+  subnets             = module.vpc.app_subnet
+  tags                = var.tags
+  vpc_id              = module.vpc.vpc_id
+}
+

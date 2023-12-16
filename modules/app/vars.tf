@@ -1,0 +1,9 @@
+variable "env" {}
+variable "component" {}
+variable "instance_type" {}
+variable "instance_capacity" {}
+variable "subnets" {}
+variable "vpc_id" {}
+variable "security_group_cidr" {}
+variable "app_port" {}
+variable "tags" {}
