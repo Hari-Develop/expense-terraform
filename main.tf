@@ -25,5 +25,6 @@ module "backend" {
   subnets             = module.vpc.app_subnet
   tags                = var.tags
   vpc_id              = module.vpc.vpc_id
+  bastion_workstation_cidr = var.bastion_workstation_cidr
 }
 

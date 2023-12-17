@@ -26,3 +26,5 @@ backend = {
   instance_capacity = 1
   instance_type     = "t2.micro"
 }
+
+bastion_workstation_cidr = ["172.31.42.115/32"]

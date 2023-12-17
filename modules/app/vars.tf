@@ -7,3 +7,4 @@ variable "vpc_id" {}
 variable "security_group_cidr" {}
 variable "app_port" {}
 variable "tags" {}
+variable "bastion_workstation_cidr" {}

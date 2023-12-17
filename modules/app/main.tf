@@ -12,6 +12,14 @@ resource "aws_security_group" "main" {
     cidr_blocks = var.security_group_cidr
   }
 
+  ingress {
+    description = "bastion_server"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "SSH"
+    cidr_blocks = var.bastion_workstation_cidr
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
