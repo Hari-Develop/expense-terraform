@@ -8,7 +8,6 @@ variable "db_subnet" {}
 variable "availability_zone" {}
 variable "account_id" {}
 variable "default_vpc_id" {}
-variable "default_vpc_cidr" {}
 variable "default_route_table_id" {}
 variable "backend" {}
 variable "bastion_workstation_cidr" {}
