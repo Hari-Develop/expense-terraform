@@ -17,7 +17,7 @@ module "vpc" {
 module "backend" {
   source = "./modules/app"
   app_port            = var.backend["app_port"]
-  component           = "Backend"
+  component           = "backend"
   env                 = var.env
   instance_capacity   = var.backend["instance_capacity"]
   instance_type       = var.backend["instance_type"]
