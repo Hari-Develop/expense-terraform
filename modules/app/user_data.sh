@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install anisble -y
+yum install ansible -y
 
 yum install python3.11-pip.noarch -y
 
