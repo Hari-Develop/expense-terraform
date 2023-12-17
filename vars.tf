@@ -11,3 +11,4 @@ variable "default_vpc_id" {}
 variable "default_route_table_id" {}
 variable "backend" {}
 variable "bastion_workstation_cidr" {}
+variable "default_vpc_cidr" {}

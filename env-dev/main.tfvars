@@ -19,6 +19,7 @@ account_id             = "513840145359"
 default_vpc_id         = "vpc-02f26d6a8715fbc70"
 default_route_table_id = "rtb-01066c9b87d4f7f51"
 
+default_vpc_cidr = "172.31.0.0/16"
 
 backend = {
   app_port          = 8080

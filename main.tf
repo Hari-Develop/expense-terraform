@@ -11,6 +11,7 @@ module "vpc" {
   account_id = var.account_id
   default_vpc_id = var.default_vpc_id
   default_route_table_id = var.default_route_table_id
+  default_vpc_cidr = var.default_vpc_cidr
 }
 
 module "backend" {
