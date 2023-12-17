@@ -54,7 +54,7 @@ resource "aws_launch_template" "main" {
 resource "aws_autoscaling_group" "main" {
   availability_zones  = ["us-east-1a"]
   desired_capacity    = var.instance_capacity
-  max_size            = var.instance_type + 3
+  max_size            = var.instance_capacity + 3
   min_size            = var.instance_capacity
   vpc_zone_identifier = var.subnets
 
