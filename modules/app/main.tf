@@ -52,7 +52,6 @@ resource "aws_launch_template" "main" {
 
 ## AWS Auto Scaling Group will start from here
 resource "aws_autoscaling_group" "main" {
-  availability_zones  = ["us-east-1a"]
   desired_capacity    = var.instance_capacity
   max_size            = var.instance_capacity + 3
   min_size            = var.instance_capacity
