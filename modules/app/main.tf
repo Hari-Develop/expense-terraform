@@ -16,7 +16,7 @@ resource "aws_security_group" "main" {
     description = "bastion_server"
     from_port   = 22
     to_port     = 22
-    protocol    = "SSH"
+    protocol    = "ssh"
     cidr_blocks = var.bastion_workstation_cidr
   }
 
@@ -95,7 +95,7 @@ resource "aws_iam_role" "main" {
       "Version": "2012-10-17",
       "Statement": [
         {
-          "Sid": "ReadAcessParameter",
+          "Sid": "ReadAccessParameter",
           "Effect": "Allow",
           "Action": [
             "ssm:GetParameterHistory",
@@ -107,7 +107,7 @@ resource "aws_iam_role" "main" {
           "Resource": "arn:aws:ssm:us-east-1:513840145359:parameter/${var.env}.${var.component}.*"
         },
         {
-          "Sid": "ReadAcessParameter",
+          "Sid": "ReadDesParameter",
           "Effect": "Allow",
           "Action": "ssm:DescribeParameters",
           "Resource": "*"
