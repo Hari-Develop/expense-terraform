@@ -32,7 +32,6 @@ resource "aws_security_group" "main" {
 }
 ## AWS Security Group will end here and start on up from line two
 
-
 ## AWS lunch template will start here
 resource "aws_launch_template" "main" {
   name_prefix            = "${var.env}-${var.component}"
@@ -43,6 +42,10 @@ resource "aws_launch_template" "main" {
     env       = var.env
     role_name = var.component
   }))
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.main.name
+  }
 }
 ## Launch template will end here
 
@@ -65,4 +68,59 @@ resource "aws_autoscaling_group" "main" {
     propagate_at_launch = true
     value               = "${var.env}-${var.component}"
   }
+}
+
+
+resource "aws_iam_role" "main" {
+  name = "${var.env}-${var.component}"
+  tags = merge(var.tags, { Name = "${var.env}-iAMrole-${var.component}" } )
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  inline_policy {
+    name = "ssm_read_access"
+
+    policy = jsonencode({
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "ReadAcessParameter",
+          "Effect": "Allow",
+          "Action": [
+            "ssm:GetParameterHistory",
+            "ssm:DescribeDocumentParameters",
+            "ssm:GetParametersByPath",
+            "ssm:GetParameters",
+            "ssm:GetParameter"
+          ],
+          "Resource": "arn:aws:ssm:us-east-1:513840145359:parameter/${var.env}.${var.component}.*"
+        },
+        {
+          "Sid": "ReadAcessParameter",
+          "Effect": "Allow",
+          "Action": "ssm:DescribeParameters",
+          "Resource": "*"
+        }
+      ]
+    })
+  }
+
+}
+
+## instance profile
+resource "aws_iam_instance_profile" "main" {
+  name = "test_profile"
+  role = aws_iam_role.main.name
 }
