@@ -34,7 +34,7 @@ resource "aws_security_group" "main" {
 
 ## AWS lunch template will start here
 resource "aws_launch_template" "main" {
-  name_prefix            = "${var.env}-${var.component}"
+  name                   = "${var.env}-${var.component}"
   image_id               = data.aws_ami.image_name.image_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
@@ -75,12 +75,12 @@ resource "aws_iam_role" "main" {
   tags = merge(var.tags, { Name = "${var.env}-iAMrole-${var.component}" } )
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Sid       = ""
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -92,25 +92,25 @@ resource "aws_iam_role" "main" {
     name = "ssm_read_access"
 
     policy = jsonencode({
-      "Version": "2012-10-17",
-      "Statement": [
+      "Version" : "2012-10-17",
+      "Statement" : [
         {
-          "Sid": "ReadAccessParameter",
-          "Effect": "Allow",
-          "Action": [
+          "Sid" : "ReadAccessParameter",
+          "Effect" : "Allow",
+          "Action" : [
             "ssm:GetParameterHistory",
             "ssm:DescribeDocumentParameters",
             "ssm:GetParametersByPath",
             "ssm:GetParameters",
             "ssm:GetParameter"
           ],
-          "Resource": "arn:aws:ssm:us-east-1:513840145359:parameter/${var.env}.${var.component}.*"
+          "Resource" : "arn:aws:ssm:us-east-1:513840145359:parameter/${var.env}.${var.component}.*"
         },
         {
-          "Sid": "ReadDesParameter",
-          "Effect": "Allow",
-          "Action": "ssm:DescribeParameters",
-          "Resource": "*"
+          "Sid" : "ReadDesParameter",
+          "Effect" : "Allow",
+          "Action" : "ssm:DescribeParameters",
+          "Resource" : "*"
         }
       ]
     })
@@ -120,6 +120,6 @@ resource "aws_iam_role" "main" {
 
 ## instance profile
 resource "aws_iam_instance_profile" "main" {
-  name = "test_profile"
+  name = "${var.env}-${var.component}"
   role = aws_iam_role.main.name
 }
