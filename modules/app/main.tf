@@ -104,9 +104,9 @@ resource "aws_iam_role" "main" {
             "ssm:GetParameters",
             "ssm:GetParameter"
           ],
-          "Resource" : "arn:aws:ssm:us-east-1:513840145359:parameter/${var.env}.${var.component}.*"
-          "Resource" : "arn:aws:ssm:us-east-1:513840145359:parameter/mysql"
-
+          "Resource" : ["arn:aws:ssm:us-east-1:513840145359:parameter/${var.env}.${var.component}.*",
+                        "arn:aws:ssm:us-east-1:513840145359:parameter/mysql"
+          ]
         },
         {
           "Sid" : "ReadDesParameter",
