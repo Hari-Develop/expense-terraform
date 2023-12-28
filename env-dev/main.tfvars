@@ -28,3 +28,7 @@ backend = {
 }
 
 bastion_workstation_cidr = ["172.31.42.115/32"]
+
+engine_version = "MySQL5.7.44"
+instance_class = "db.t3.micro"
+rds_allocated_storage = "20"

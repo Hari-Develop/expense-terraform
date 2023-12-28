@@ -28,3 +28,14 @@ module "backend" {
   bastion_workstation_cidr = var.bastion_workstation_cidr
 }
 
+module "db" {
+  source = "./modules/db"
+  component             = "mysql"
+  engine                = "mysql"
+  engine_version        = var.engine_version
+  env                   = var.env
+  family                = var.engine_version
+  instance_class        = var.instance_class
+  rds_allocated_storage = var.rds_allocated_storage
+}
+

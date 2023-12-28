@@ -12,3 +12,7 @@ variable "default_route_table_id" {}
 variable "backend" {}
 variable "bastion_workstation_cidr" {}
 variable "default_vpc_cidr" {}
+variable "engine_version" {}
+variable "family" {}
+variable "instance_class" {}
+variable "rds_allocated_storage" {}
