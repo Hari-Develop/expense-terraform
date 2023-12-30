@@ -1,3 +1,3 @@
 bucket = "terraform-backend-file-d76"
-key    = "expense/dev/terraform.tfstate"
+key    = "parameter/dev/terraform.tfstate"
 region = "us-east-1"
