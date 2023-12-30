@@ -13,7 +13,7 @@ resource "aws_db_instance" "main" {
   tags                   = merge(var.tags, { Name = "${var.env}-mysql-rds" })
   db_subnet_group_name   = aws_db_subnet_group.main.name
   storage_type           = "gp3"
-  vpc_security_group_ids = [aws_db_subnet_group.main.id]
+  vpc_security_group_ids = [aws_security_group.main.id]
 }
 
 resource "aws_db_parameter_group" "main" {
