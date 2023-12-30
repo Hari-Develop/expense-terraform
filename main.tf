@@ -30,10 +30,9 @@ module "backend" {
 
 module "db" {
   source                = "./modules/db"
-  engine                = "mysql"
+  engine                = var.engine
   engine_version        = var.engine_version
   env                   = var.env
-  family                = var.family
   instance_class        = var.instance_class
   rds_allocated_storage = var.rds_allocated_storage
   subnets               = module.vpc.db_subnet

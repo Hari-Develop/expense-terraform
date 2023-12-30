@@ -18,7 +18,7 @@ resource "aws_db_instance" "main" {
 
 resource "aws_db_parameter_group" "main" {
   name   = "${var.env}-mysql-rds"
-  family = var.family
+  family = "mysql5.7"
 }
 
 

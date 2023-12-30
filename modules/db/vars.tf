@@ -3,7 +3,6 @@ variable "engine" {}
 variable "engine_version" {}
 variable "instance_class" {}
 variable "env" {}
-variable "family" {}
 variable "subnets" {}
 variable "tags" {}
 variable "vpc_id" {}
