@@ -35,8 +35,8 @@ module "frontend" {
   env                      = var.env
   instance_capacity        = var.frontend["instance_capacity"]
   instance_type            = var.frontend["instance_type"]
-  security_group_cidr      = var.web_subnet
-  subnets                  = module.vpc.public_subnet
+  security_group_cidr      = var.public_subnet
+  subnets                  = module.vpc.web_subnet
   tags                     = var.tags
   vpc_id                   = module.vpc.vpc_id
   bastion_workstation_cidr = var.bastion_workstation_cidr

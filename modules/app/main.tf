@@ -48,7 +48,7 @@ resource "aws_launch_template" "main" {
 }
 
 
-## AWS TARGET GROUP FOR LOADBALANCER ...
+## AWS TARGET GROUP FOR LOAD BALANCER ...
 
 resource "aws_lb_target_group" "main" {
   name     = "${var.env}-${var.component}"
