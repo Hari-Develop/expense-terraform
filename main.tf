@@ -31,7 +31,7 @@ module "backend" {
 module "frontend" {
   source                   = "./modules/app"
   app_port                 = var.frontend["app_port"]
-  component                = "backend"
+  component                = "frontend"
   env                      = var.env
   instance_capacity        = var.frontend["instance_capacity"]
   instance_type            = var.frontend["instance_type"]
@@ -53,5 +53,18 @@ module "db" {
   tags                  = var.tags
   security_group_cidr   = var.app_subnet
   vpc_id                = module.vpc.vpc_id
+}
+
+module "alb" {
+  source   = "./modules/alb"
+  internal = var.frontend_alb["internal"]
+  env      = var.env
+  subnets  = module.vpc.public_subnet
+  lb_port  = var.frontend_alb["lb_port"]
+  tags     = var.tags
+  type     = var.frontend_alb["type"]
+  vpc_id   = module.vpc.vpc_id
+  sg_cidr  = ["0.0.0.0/0"]
+  target_group_arn = module.frontend.target_group_arn
 }
 

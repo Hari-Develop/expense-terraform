@@ -30,9 +30,8 @@ resource "aws_security_group" "main" {
 
   tags = merge(var.tags, { Name = "${var.env}-auto_scaling-${var.component}-sg" } )
 }
-## AWS Security Group will end here and start on up from line two
 
-## AWS lunch template will start here
+## AWS lunch template ...
 resource "aws_launch_template" "main" {
   name                   = "${var.env}-${var.component}"
   image_id               = data.aws_ami.image_name.image_id
@@ -47,15 +46,26 @@ resource "aws_launch_template" "main" {
     name = aws_iam_instance_profile.main.name
   }
 }
-## Launch template will end here
 
 
-## AWS Auto Scaling Group will start from here
+## AWS TARGET GROUP FOR LOADBALANCER ...
+resource "aws_lb_target_group" "main" {
+  name     = "${var.env}-target-group"
+  port     = var.app_port
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
+
+
+
+
+## AWS Auto Scaling Group ...
 resource "aws_autoscaling_group" "main" {
   desired_capacity    = var.instance_capacity
   max_size            = var.instance_capacity + 3
   min_size            = var.instance_capacity
   vpc_zone_identifier = var.subnets
+  target_group_arns   = [aws_lb_target_group.main.arn]
 
   launch_template {
     id      = aws_launch_template.main.id
@@ -70,6 +80,7 @@ resource "aws_autoscaling_group" "main" {
 }
 
 
+## AWS IAM ROLE CREATION
 resource "aws_iam_role" "main" {
   name = "${var.env}-${var.component}"
   tags = merge(var.tags, { Name = "${var.env}-iAMrole-${var.component}" } )

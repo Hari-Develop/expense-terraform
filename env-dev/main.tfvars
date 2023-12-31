@@ -41,3 +41,9 @@ engine_version = "5.7.44"
 instance_class = "db.t3.micro"
 rds_allocated_storage = 20
 engine = "mysql"
+
+frontend_lb = {
+  internal = false
+  lb_port = 80
+  type =  "public"
+}
