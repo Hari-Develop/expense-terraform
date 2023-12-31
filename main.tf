@@ -57,12 +57,12 @@ module "db" {
 
 module "alb" {
   source   = "./modules/alb"
-  internal = var.frontend_alb["internal"]
+  internal = var.frontend_lb["internal"]
   env      = var.env
   subnets  = module.vpc.public_subnet
-  lb_port  = var.frontend_alb["lb_port"]
+  lb_port  = var.frontend_lb["lb_port"]
   tags     = var.tags
-  type     = var.frontend_alb["type"]
+  type     = var.frontend_lb["type"]
   vpc_id   = module.vpc.vpc_id
   sg_cidr  = ["0.0.0.0/0"]
   target_group_arn = module.frontend.target_group_arn
