@@ -16,3 +16,4 @@ variable "engine_version" {}
 variable "instance_class" {}
 variable "rds_allocated_storage" {}
 variable "engine" {}
+variable "frontend" {}

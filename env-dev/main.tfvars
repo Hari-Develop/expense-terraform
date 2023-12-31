@@ -27,6 +27,14 @@ backend = {
   instance_type     = "t2.micro"
 }
 
+frontend = {
+  app_port          = 80
+  instance_capacity = 1
+  instance_type     = "t2.micro"
+}
+
+
+
 bastion_workstation_cidr = ["172.31.42.115/32"]
 
 engine_version = "5.7.44"

@@ -28,6 +28,20 @@ module "backend" {
   bastion_workstation_cidr = var.bastion_workstation_cidr
 }
 
+module "frontend" {
+  source                   = "./modules/app"
+  app_port                 = var.frontend["app_port"]
+  component                = "backend"
+  env                      = var.env
+  instance_capacity        = var.frontend["instance_capacity"]
+  instance_type            = var.frontend["instance_type"]
+  security_group_cidr      = var.web_subnet
+  subnets                  = module.vpc.public_subnet
+  tags                     = var.tags
+  vpc_id                   = module.vpc.vpc_id
+  bastion_workstation_cidr = var.bastion_workstation_cidr
+}
+
 module "db" {
   source                = "./modules/db"
   engine                = var.engine
