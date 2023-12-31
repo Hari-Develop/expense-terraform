@@ -49,8 +49,9 @@ resource "aws_launch_template" "main" {
 
 
 ## AWS TARGET GROUP FOR LOADBALANCER ...
+
 resource "aws_lb_target_group" "main" {
-  name     = "${var.env}-target-group"
+  name     = "${var.env}-tgroup"
   port     = var.app_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
