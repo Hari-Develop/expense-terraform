@@ -47,3 +47,10 @@ frontend_lb = {
   lb_port = 80
   type =  "public"
 }
+
+backend_lb = {
+  internal = true
+  lb_port = 80
+  type =  "private"
+}
+

@@ -18,3 +18,4 @@ variable "rds_allocated_storage" {}
 variable "engine" {}
 variable "frontend" {}
 variable "frontend_lb" {}
+variable "backend_lb" {}

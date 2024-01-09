@@ -55,7 +55,7 @@ module "db" {
   vpc_id                = module.vpc.vpc_id
 }
 
-module "alb" {
+module "pubilc_alb" {
   source   = "./modules/alb"
   internal = var.frontend_lb["internal"]
   env      = var.env
@@ -66,5 +66,18 @@ module "alb" {
   vpc_id   = module.vpc.vpc_id
   sg_cidr  = ["0.0.0.0/0"]
   target_group_arn = module.frontend.target_group_arn
+}
+
+module "backend_alb" {
+  source   = "./modules/alb"
+  internal = var.backend_lb["internal"]
+  env      = var.env
+  subnets  = module.vpc.app_subnet
+  lb_port  = var.backend_lb["lb_port"]
+  tags     = var.tags
+  type     = var.backend_lb["type"]
+  vpc_id   = module.vpc.vpc_id
+  sg_cidr  = var.web_subnet
+  target_group_arn = module.backend.target_group_arn
 }
 
