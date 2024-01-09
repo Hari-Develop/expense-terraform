@@ -45,7 +45,7 @@ engine = "mysql"
 frontend_lb = {
   internal = false
   lb_port = 80
-  type =  "private"
+  type =  "public"
 }
 
 backend_lb = {
