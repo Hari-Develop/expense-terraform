@@ -46,11 +46,15 @@ frontend_lb = {
   internal = false
   lb_port = 80
   type =  "public"
+  component = "frontend"
 }
 
 backend_lb = {
   internal = true
   lb_port = 80
   type =  "private"
+  component = "backend"
 }
+
+route53_id = "Z06871881CL4DDBJ9UGQ6"
 

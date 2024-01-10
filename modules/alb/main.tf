@@ -43,3 +43,11 @@ resource "aws_security_group" "main" {
 
   tags = merge(var.tags, { Name = "${var.env}-${var.type}-alb" })
 }
+
+resource "aws_route53_record" "main" {
+  name    = "${var.component}-${var.env}"
+  type    = "CNAME"
+  zone_id = var.route53_id
+  ttl = 30
+  records = [aws_lb.main.dns_name]
+}

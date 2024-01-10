@@ -8,3 +8,5 @@ variable "subnets" {}
 variable "lb_port" {}
 variable "sg_cidr" {}
 variable "target_group_arn" {}
+variable "component" {}
+variable "route53_id" {}

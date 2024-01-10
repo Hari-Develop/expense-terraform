@@ -66,6 +66,8 @@ module "pubilc_alb" {
   vpc_id   = module.vpc.vpc_id
   sg_cidr  = ["0.0.0.0/0"]
   target_group_arn = module.frontend.target_group_arn
+  component = var.frontend_lb["component"]
+  route53_id = var.route53_id
 }
 
 module "backend_alb" {
@@ -79,5 +81,7 @@ module "backend_alb" {
   vpc_id   = module.vpc.vpc_id
   sg_cidr  = var.web_subnet
   target_group_arn = module.backend.target_group_arn
+  component = var.backend_lb["component"]
+  route53_id = var.route53_id
 }
 
