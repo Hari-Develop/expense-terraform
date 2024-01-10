@@ -21,7 +21,7 @@ module "backend" {
   env                      = var.env
   instance_capacity        = var.backend["instance_capacity"]
   instance_type            = var.backend["instance_type"]
-  security_group_cidr      = var.web_subnet
+  security_group_cidr      = var.app_subnet
   subnets                  = module.vpc.app_subnet
   tags                     = var.tags
   vpc_id                   = module.vpc.vpc_id
