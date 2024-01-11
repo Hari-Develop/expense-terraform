@@ -37,6 +37,19 @@ resource "aws_launch_template" "main" {
   image_id               = data.aws_ami.image_name.image_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
+
+  block_device_mappings {
+    device_name = "/dev/sda1"
+
+    ebs {
+      volume_size = 10
+      encrypted = true
+      kms_key_id = var.kms_key_id
+      delete_on_termination = true
+    }
+  }
+
+
   user_data              = base64encode(templatefile("${path.module}/user_data.sh", {
     role_name = var.component
     env       = var.env

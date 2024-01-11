@@ -14,6 +14,8 @@ resource "aws_db_instance" "main" {
   db_subnet_group_name   = aws_db_subnet_group.main.name
   storage_type           = "gp3"
   vpc_security_group_ids = [aws_security_group.main.id]
+  storage_encrypted      = true
+  kms_key_id             = var.kms_key_id
 }
 
 resource "aws_db_parameter_group" "main" {
@@ -22,14 +24,12 @@ resource "aws_db_parameter_group" "main" {
 }
 
 
-
 resource "aws_db_subnet_group" "main" {
   name       = "${var.env}-mysql-rds"
   subnet_ids = var.subnets
 
   tags = merge(var.tags, { Name = "${var.env}-mysql-rds" })
 }
-
 
 
 resource "aws_security_group" "main" {

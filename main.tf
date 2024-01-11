@@ -26,6 +26,7 @@ module "backend" {
   tags                     = var.tags
   vpc_id                   = module.vpc.vpc_id
   bastion_workstation_cidr = var.bastion_workstation_cidr
+  kms_key_id               = var.kms_key_id
 }
 
 module "frontend" {
@@ -40,6 +41,7 @@ module "frontend" {
   tags                     = var.tags
   vpc_id                   = module.vpc.vpc_id
   bastion_workstation_cidr = var.bastion_workstation_cidr
+  kms_key_id               = var.kms_key_id
 }
 
 module "db" {
@@ -53,35 +55,36 @@ module "db" {
   tags                  = var.tags
   security_group_cidr   = var.app_subnet
   vpc_id                = module.vpc.vpc_id
+  kms_key_id            = var.kms_key_id
 }
 
 module "pubilc_alb" {
-  source   = "./modules/alb"
-  internal = var.frontend_lb["internal"]
-  env      = var.env
-  subnets  = module.vpc.public_subnet
-  lb_port  = var.frontend_lb["lb_port"]
-  tags     = var.tags
-  type     = var.frontend_lb["type"]
-  vpc_id   = module.vpc.vpc_id
-  sg_cidr  = ["0.0.0.0/0"]
+  source           = "./modules/alb"
+  internal         = var.frontend_lb["internal"]
+  env              = var.env
+  subnets          = module.vpc.public_subnet
+  lb_port          = var.frontend_lb["lb_port"]
+  tags             = var.tags
+  type             = var.frontend_lb["type"]
+  vpc_id           = module.vpc.vpc_id
+  sg_cidr          = ["0.0.0.0/0"]
   target_group_arn = module.frontend.target_group_arn
-  component = var.frontend_lb["component"]
-  route53_id = var.route53_id
+  component        = var.frontend_lb["component"]
+  route53_id       = var.route53_id
 }
 
 module "backend_alb" {
-  source   = "./modules/alb"
-  internal = var.backend_lb["internal"]
-  env      = var.env
-  subnets  = module.vpc.app_subnet
-  lb_port  = var.backend_lb["lb_port"]
-  tags     = var.tags
-  type     = var.backend_lb["type"]
-  vpc_id   = module.vpc.vpc_id
-  sg_cidr  = var.web_subnet
+  source           = "./modules/alb"
+  internal         = var.backend_lb["internal"]
+  env              = var.env
+  subnets          = module.vpc.app_subnet
+  lb_port          = var.backend_lb["lb_port"]
+  tags             = var.tags
+  type             = var.backend_lb["type"]
+  vpc_id           = module.vpc.vpc_id
+  sg_cidr          = var.web_subnet
   target_group_arn = module.backend.target_group_arn
-  component = var.backend_lb["component"]
-  route53_id = var.route53_id
+  component        = var.backend_lb["component"]
+  route53_id       = var.route53_id
 }
 

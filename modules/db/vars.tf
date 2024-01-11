@@ -7,3 +7,4 @@ variable "subnets" {}
 variable "tags" {}
 variable "vpc_id" {}
 variable "security_group_cidr" {}
+variable "kms_key_id" {}

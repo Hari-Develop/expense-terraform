@@ -8,3 +8,4 @@ variable "security_group_cidr" {}
 variable "app_port" {}
 variable "tags" {}
 variable "bastion_workstation_cidr" {}
+variable "kms_key_id" {}

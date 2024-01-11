@@ -58,3 +58,5 @@ backend_lb = {
 
 route53_id = "Z06871881CL4DDBJ9UGQ6"
 
+kms_key_id = "arn:aws:kms:us-east-1:513840145359:key/6160c502-9ac0-472a-877c-2bb461345dfb"
+
