@@ -10,3 +10,5 @@ variable "sg_cidr" {}
 variable "target_group_arn" {}
 variable "component" {}
 variable "route53_id" {}
+variable "certificate_arn" {}
+variable "enable_https" {}

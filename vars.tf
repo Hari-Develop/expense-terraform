@@ -20,4 +20,5 @@ variable "frontend" {}
 variable "frontend_lb" {}
 variable "backend_lb" {}
 variable "route53_id" {}
-variable "kms_key_id" {}
+variable "enable_https" {}
+variable "certificate_arn" {}

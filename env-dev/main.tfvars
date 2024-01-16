@@ -47,6 +47,7 @@ frontend_lb = {
   lb_port = 80
   type =  "public"
   component = "frontend"
+  enable_https = true
 }
 
 backend_lb = {
@@ -54,9 +55,9 @@ backend_lb = {
   lb_port = 80
   type =  "private"
   component = "backend"
+  enable_https = false
 }
 
 route53_id = "Z06871881CL4DDBJ9UGQ6"
-
-kms_key_id = "arn:aws:kms:us-east-1:513840145359:key/6160c502-9ac0-472a-877c-2bb461345dfb"
+certificate_arn = "arn:aws:acm:us-east-1:513840145359:certificate/0f0f7891-1789-4c5a-bfe4-b64a397997d6"
 

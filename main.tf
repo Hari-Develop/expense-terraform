@@ -26,7 +26,6 @@ module "backend" {
   tags                     = var.tags
   vpc_id                   = module.vpc.vpc_id
   bastion_workstation_cidr = var.bastion_workstation_cidr
-  kms_key_id               = var.kms_key_id
 }
 
 module "frontend" {
@@ -41,7 +40,6 @@ module "frontend" {
   tags                     = var.tags
   vpc_id                   = module.vpc.vpc_id
   bastion_workstation_cidr = var.bastion_workstation_cidr
-  kms_key_id               = var.kms_key_id
 }
 
 module "db" {
@@ -55,7 +53,6 @@ module "db" {
   tags                  = var.tags
   security_group_cidr   = var.app_subnet
   vpc_id                = module.vpc.vpc_id
-  kms_key_id            = var.kms_key_id
 }
 
 module "pubilc_alb" {
@@ -71,6 +68,8 @@ module "pubilc_alb" {
   target_group_arn = module.frontend.target_group_arn
   component        = var.frontend_lb["component"]
   route53_id       = var.route53_id
+  enable_https = var.frontend_lb["enable_https"]
+  certificate_arn = var.certificate_arn
 }
 
 module "backend_alb" {
@@ -86,5 +85,7 @@ module "backend_alb" {
   target_group_arn = module.backend.target_group_arn
   component        = var.backend_lb["component"]
   route53_id       = var.route53_id
+  enable_https = var.backend_lb["enable_https"]
+  certificate_arn = var.certificate_arn
 }
 

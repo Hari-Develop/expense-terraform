@@ -41,15 +41,10 @@ resource "aws_launch_template" "main" {
   block_device_mappings {
     device_name = "/dev/sda1"
 
-    ebs {
-      encrypted = true
-      kms_key_id = var.kms_key_id
-      delete_on_termination = true
-    }
   }
 
 
-  user_data              = base64encode(templatefile("${path.module}/user_data.sh", {
+  user_data   = base64encode(templatefile("${path.module}/user_data.sh", {
     role_name = var.component
     env       = var.env
   }))

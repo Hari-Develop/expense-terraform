@@ -15,7 +15,6 @@ resource "aws_db_instance" "main" {
   storage_type           = "gp3"
   vpc_security_group_ids = [aws_security_group.main.id]
   storage_encrypted      = true
-  kms_key_id             = var.kms_key_id
 }
 
 resource "aws_db_parameter_group" "main" {
