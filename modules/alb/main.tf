@@ -10,6 +10,7 @@ resource "aws_lb" "main" {
 
 
 resource "aws_lb_listener" "main" {
+  count = var.enable_https ? 0 : 1
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
@@ -76,6 +77,7 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_security_group_rule" "https" {
+  count = var.enable_https ? 1 : 0
   from_port         = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.main.id
