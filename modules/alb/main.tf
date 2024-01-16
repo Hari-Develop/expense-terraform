@@ -10,7 +10,6 @@ resource "aws_lb" "main" {
 
 
 resource "aws_lb_listener" "main" {
-  count = var.enable_https ? 0 : 1
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
