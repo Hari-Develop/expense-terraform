@@ -140,7 +140,8 @@ resource "aws_iam_role" "main" {
                         "arn:aws:ssm:us-east-1:513840145359:parameter/mysqlpassword",
                         "arn:aws:ssm:us-east-1:513840145359:parameter/dev.rds.password",
                         "arn:aws:ssm:us-east-1:513840145359:parameter/dev.rds.username",
-                        "arn:aws:ssm:us-east-1:513840145359:parameter/dev.mysql.endpoint"
+                        "arn:aws:ssm:us-east-1:513840145359:parameter/dev.mysql.endpoint",
+                        "arn:aws:ssm:us-east-1:513840145359:parameter/dev.backend.Bakend_end_point"
           ]
         },
         {
