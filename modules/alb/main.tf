@@ -10,7 +10,7 @@ resource "aws_lb" "main" {
 
 
 resource "aws_lb_listener" "main" {
-  count = var.enable_https ? 0 : 1
+  count             = var.enable_https ? 0 : 1
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "https" {
 }
 
 resource "aws_lb_listener" "http" {
-  count = var.enable_https ? 1 : 0
+  count             = var.enable_https ? 1 : 0
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
@@ -77,7 +77,7 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_security_group_rule" "https" {
-  count = var.enable_https ? 1 : 0
+  count             = var.enable_https ? 1 : 0
   from_port         = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.main.id
@@ -94,7 +94,7 @@ resource "aws_route53_record" "main" {
 }
 
 resource "aws_wafv2_web_acl" "main" {
-  count = var.enable_https ? 1 : 0
+  count         = var.enable_https ? 1 : 0
   name          = "${var.component}-${var.env}-rule"
   scope         = "REGIONAL"
   tags          = {}
@@ -146,6 +146,7 @@ resource "aws_wafv2_web_acl" "main" {
 }
 
 resource "aws_wafv2_web_acl_association" "main" {
+  count        = var.enable_https ? 1 : 0
   resource_arn = aws_lb.main.arn
   web_acl_arn  = aws_wafv2_web_acl.main[0].arn
 }
