@@ -15,6 +15,7 @@ module "vpc" {
 }
 
 module "backend" {
+  depends_on               = [module.db]
   source                   = "./modules/app"
   app_port                 = var.backend["app_port"]
   component                = "backend"
